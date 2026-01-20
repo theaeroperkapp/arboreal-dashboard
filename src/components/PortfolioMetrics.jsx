@@ -1,13 +1,13 @@
 import { Home, TrendingDown, Clock, Calendar, FileText, PenTool } from 'lucide-react';
 import MetricCard from './MetricCard';
 
-export default function PortfolioMetrics({ metrics }) {
+export default function PortfolioMetrics({ metrics, propertyCount }) {
   const cards = [
     {
       icon: Home,
       label: 'Total Units',
       value: metrics.totalUnits.toLocaleString(),
-      subtext: '17 properties'
+      subtext: `${propertyCount} properties`
     },
     {
       icon: TrendingDown,
