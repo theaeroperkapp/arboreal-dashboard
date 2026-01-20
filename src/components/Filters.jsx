@@ -20,7 +20,7 @@ export default function Filters({ filters, setFilters, locations }) {
         <select
           value={filters.location}
           onChange={(e) => setFilters(prev => ({ ...prev, location: e.target.value }))}
-          className="bg-white border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent cursor-pointer"
+          className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-2 text-sm text-gray-700 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent cursor-pointer"
         >
           {locationOptions.map(option => (
             <option key={option.value} value={option.value}>
@@ -35,7 +35,7 @@ export default function Filters({ filters, setFilters, locations }) {
         <select
           value={filters.status}
           onChange={(e) => setFilters(prev => ({ ...prev, status: e.target.value }))}
-          className="bg-white border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent cursor-pointer"
+          className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-2 text-sm text-gray-700 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent cursor-pointer"
         >
           {statusOptions.map(option => (
             <option key={option.value} value={option.value}>

@@ -43,7 +43,7 @@ export default function PortfolioMetrics({ metrics, propertyCount }) {
 
   return (
     <section className="mb-8">
-      <h2 className="text-lg font-semibold text-gray-900 mb-4">Portfolio Overview</h2>
+      <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Portfolio Overview</h2>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
         {cards.map((card, index) => (
           <MetricCard key={index} {...card} />

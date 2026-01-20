@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import Header from './components/Header';
 import Filters from './components/Filters';
 import PortfolioMetrics from './components/PortfolioMetrics';
@@ -11,10 +11,25 @@ function App() {
   const { properties, metrics } = useMemo(() => generateSampleData(), []);
   const trendData = useMemo(() => generateTrendData(), []);
 
+  const [darkMode, setDarkMode] = useState(() => {
+    const saved = localStorage.getItem('darkMode');
+    return saved ? JSON.parse(saved) : false;
+  });
+
   const [filters, setFilters] = useState({
     location: 'all',
     status: 'all'
   });
+
+  // Apply dark mode class to html element
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+    localStorage.setItem('darkMode', JSON.stringify(darkMode));
+  }, [darkMode]);
 
   // Get unique locations for filter dropdown
   const locations = useMemo(() => {
@@ -56,8 +71,8 @@ function App() {
   }, [filteredProperties, metrics, filters, properties.length]);
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Header />
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">
+      <Header darkMode={darkMode} setDarkMode={setDarkMode} />
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <Filters
           filters={filters}
@@ -67,11 +82,11 @@ function App() {
         <PortfolioMetrics metrics={filteredMetrics} propertyCount={filteredProperties.length} />
         <PropertyHeatmap properties={filteredProperties} />
         <ActionPriorityList properties={filteredProperties} />
-        <TrendChart data={trendData} />
+        <TrendChart data={trendData} darkMode={darkMode} />
       </main>
-      <footer className="bg-white border-t border-gray-200 py-4">
+      <footer className="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 py-4 transition-colors">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-center text-sm text-gray-500">
+          <p className="text-center text-sm text-gray-500 dark:text-gray-400">
             Arboreal Leasing Velocity Dashboard - Built for Arboreal Management
           </p>
         </div>

@@ -23,19 +23,19 @@ export default function PropertyHeatmap({ properties }) {
   return (
     <section className="mb-8">
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-lg font-semibold text-gray-900">Property Status</h2>
+        <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Property Status</h2>
         <div className="flex items-center gap-4 text-sm">
           <div className="flex items-center gap-1.5">
             <span className="w-2.5 h-2.5 rounded-full bg-urgent" />
-            <span className="text-gray-600">Urgent ({statusCounts.urgent})</span>
+            <span className="text-gray-600 dark:text-gray-400">Urgent ({statusCounts.urgent})</span>
           </div>
           <div className="flex items-center gap-1.5">
             <span className="w-2.5 h-2.5 rounded-full bg-watch" />
-            <span className="text-gray-600">Watch ({statusCounts.watch})</span>
+            <span className="text-gray-600 dark:text-gray-400">Watch ({statusCounts.watch})</span>
           </div>
           <div className="flex items-center gap-1.5">
             <span className="w-2.5 h-2.5 rounded-full bg-healthy" />
-            <span className="text-gray-600">Healthy ({statusCounts.healthy})</span>
+            <span className="text-gray-600 dark:text-gray-400">Healthy ({statusCounts.healthy})</span>
           </div>
         </div>
       </div>
