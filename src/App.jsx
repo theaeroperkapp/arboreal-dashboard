@@ -5,11 +5,16 @@ import PortfolioMetrics from './components/PortfolioMetrics';
 import PropertyHeatmap from './components/PropertyHeatmap';
 import ActionPriorityList from './components/ActionPriorityList';
 import TrendChart from './components/TrendChart';
+import AdminPage from './components/AdminPage';
 import { generateSampleData, generateTrendData } from './data/sampleData';
+import { useVisitorTracking } from './hooks/useVisitorTracking';
 
 function App() {
   const { properties, metrics } = useMemo(() => generateSampleData(), []);
   const trendData = useMemo(() => generateTrendData(), []);
+
+  // Track visitors
+  useVisitorTracking();
 
   const [darkMode, setDarkMode] = useState(() => {
     const saved = localStorage.getItem('darkMode');
@@ -20,6 +25,19 @@ function App() {
     location: 'all',
     status: 'all'
   });
+
+  // Simple hash-based routing for admin page
+  const [currentPage, setCurrentPage] = useState(() => {
+    return window.location.hash === '#/admin' ? 'admin' : 'dashboard';
+  });
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      setCurrentPage(window.location.hash === '#/admin' ? 'admin' : 'dashboard');
+    };
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
 
   // Apply dark mode class to html element
   useEffect(() => {
@@ -69,6 +87,19 @@ function App() {
       leasesSignedToday: Math.round(metrics.leasesSignedToday * (filteredProperties.length / properties.length))
     };
   }, [filteredProperties, metrics, filters, properties.length]);
+
+  // Render admin page
+  if (currentPage === 'admin') {
+    return (
+      <AdminPage
+        darkMode={darkMode}
+        onBack={() => {
+          window.location.hash = '';
+          setCurrentPage('dashboard');
+        }}
+      />
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">
